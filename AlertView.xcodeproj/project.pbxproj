@@ -15,6 +15,7 @@
 		0E9C982E1D127E9B00C9370C /* AlertViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9C982D1D127E9B00C9370C /* AlertViewTests.swift */; };
 		0E9C98391D127E9B00C9370C /* AlertViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9C98381D127E9B00C9370C /* AlertViewUITests.swift */; };
 		0E9C98491D127EF800C9370C /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9C98481D127EF800C9370C /* PopupView.swift */; };
+		734D32D61D12F0E600CAA481 /* PopupViewForAutolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734D32D51D12F0E600CAA481 /* PopupViewForAutolayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		0E9C98381D127E9B00C9370C /* AlertViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewUITests.swift; sourceTree = "<group>"; };
 		0E9C983A1D127E9B00C9370C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E9C98481D127EF800C9370C /* PopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
+		734D32D51D12F0E600CAA481 /* PopupViewForAutolayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewForAutolayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				0E9C98211D127E9B00C9370C /* LaunchScreen.storyboard */,
 				0E9C98241D127E9B00C9370C /* Info.plist */,
 				0E9C98481D127EF800C9370C /* PopupView.swift */,
+				734D32D51D12F0E600CAA481 /* PopupViewForAutolayout.swift */,
 			);
 			path = AlertView;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				734D32D61D12F0E600CAA481 /* PopupViewForAutolayout.swift in Sources */,
 				0E9C981B1D127E9B00C9370C /* ViewController.swift in Sources */,
 				0E9C98491D127EF800C9370C /* PopupView.swift in Sources */,
 				0E9C98191D127E9B00C9370C /* AppDelegate.swift in Sources */,
@@ -486,6 +490,7 @@
 				0E9C983F1D127E9B00C9370C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0E9C98401D127E9B00C9370C /* Build configuration list for PBXNativeTarget "AlertViewTests" */ = {
 			isa = XCConfigurationList;
@@ -494,6 +499,7 @@
 				0E9C98421D127E9B00C9370C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0E9C98431D127E9B00C9370C /* Build configuration list for PBXNativeTarget "AlertViewUITests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +508,7 @@
 				0E9C98451D127E9B00C9370C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
