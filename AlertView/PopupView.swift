@@ -17,6 +17,12 @@ enum PopupViewStyle {
     case ComplexStyle
 }
 
+enum ToastDurationTime: Double {
+    case ShortTime = 1.0
+    case NormalTime = 2.0
+    case LongTime = 4.0
+}
+
 
 class PopupView: UIView {
     
@@ -25,15 +31,21 @@ class PopupView: UIView {
     var message: String?
     
     var backgroundView: UIView?
+    
+    var titleLabel: UILabel!
+    var messageLabel: UILabel!
+    
     var popupButtonTitle: Array<String>?
     
+    var toastDurationTime: ToastDurationTime = .ShortTime
     
     
     // MARK: - Initailize
-    init(popupViewStyle: PopupViewStyle) {
+    init(popupViewStyle: PopupViewStyle, message: String) {
         super.init(frame: UIScreen.mainScreen().bounds)
         
         self.popupViewStyle = popupViewStyle
+        self.message = message
         
         setPopupView()
     }
@@ -47,39 +59,13 @@ class PopupView: UIView {
     private func setPopupView() {
         self.backgroundColor = UIColor.clearColor()
         
-        self.backgroundView = UIView()
-        
-        let viewDic: Dictionary<String, AnyObject> = [
-            "superView" : self,
-            "backgroundView" : self.backgroundView!
-        ]
-        
-        let backgroundView_H = NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|-10-[backgroundView]-10-|",
-            options: NSLayoutFormatOptions(rawValue: 0),
-            metrics: nil,
-            views: viewDic)
-        
-        let backgroundView_V = NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:|-50-[backgroundView]-50-|",
-            options: NSLayoutFormatOptions(rawValue: 0),
-            metrics: nil,
-            views: viewDic)
-        
-//        self.backgroundView = UIView(frame: CGRectMake(10.0, 50.0, self.bounds.size.width - 20.0, self.bounds.size.height - 100.0))
-//        self.backgroundView = UIView()
-        self.backgroundView?.backgroundColor = UIColor.redColor()
-        self.backgroundView?.addConstraints(backgroundView_H)
-        self.backgroundView?.addConstraints(backgroundView_V)
-        self.addSubview(self.backgroundView!)
-        
         switch (self.popupViewStyle! as PopupViewStyle) {
         case .ToastStyle:
             createToastView()
             break
             
         case .AlertStyle:
-            
+            createAlertView()
             break
             
         default:
@@ -88,8 +74,57 @@ class PopupView: UIView {
         }
     }
     
-    private func createToastView() {
+    @objc private func timerAction() {
+        UIView.animateWithDuration(
+            0.5,
+            animations: { void in
+                self.alpha = 0.0
+            },
+            completion: { finished in
+                self.removeFromSuperview()
+        })
+    }
+    
+    func createToastView() {
+        self.messageLabel = UILabel(frame: self.bounds)
+        self.messageLabel.text = self.message
+        self.messageLabel.font = UIFont.systemFontOfSize(15.0)
+        self.messageLabel.textAlignment = .Center
+        self.messageLabel.textColor = UIColor.whiteColor()
         
+        let textSize = self.messageLabel.intrinsicContentSize()
+        
+        self.frame = CGRectMake(
+            (self.frame.size.width - textSize.width) / 2.0,
+            self.frame.size.height - textSize.height - 40.0,
+            textSize.width + 20.0,
+            textSize.height + 20.0)
+        
+        self.messageLabel.frame = CGRectMake(
+            10.0,
+            10.0,
+            textSize.width,
+            textSize.height)
+        
+        self.addSubview(self.messageLabel)
+        
+        self.alpha = 0.0
+        self.layer.cornerRadius = 3.0
+        self.layer.borderColor = UIColor.blackColor().CGColor
+        self.layer.borderWidth = 0.5
+        self.backgroundColor = UIColor.darkGrayColor()
+        
+        print("\(self.frame) \n \(self.messageLabel.frame)")
+    }
+    
+    func createAlertView() {
+        self.backgroundView = UIView(frame: CGRectMake(
+            10.0,
+            50.0,
+            self.bounds.size.width - 20.0,
+            self.bounds.size.height - 100.0))
+        self.backgroundView?.backgroundColor = UIColor.redColor()
+        self.addSubview(self.backgroundView!)
     }
     
     
@@ -100,6 +135,29 @@ class PopupView: UIView {
     
     internal func show() {
         UIApplication.sharedApplication().delegate?.window??.addSubview(self)
+        
+        switch (self.popupViewStyle! as PopupViewStyle) {
+        case .ToastStyle:
+            UIView.animateWithDuration(
+                0.5,
+                animations: { void in
+                    self.alpha = 1.0
+                }, completion: { finished in
+                    NSTimer.scheduledTimerWithTimeInterval(
+                        self.toastDurationTime.rawValue,
+                        target: self,
+                        selector: #selector(self.timerAction),
+                        userInfo: nil,
+                        repeats: false)
+                    })
+            break
+            
+        case .AlertStyle:
+            break;
+            
+        default:
+            break
+        }
     }
     
     internal func hide() {
