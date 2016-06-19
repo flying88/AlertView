@@ -127,6 +127,10 @@ class PopupView: UIView {
         self.addSubview(self.backgroundView!)
     }
     
+    func addView() {
+        UIApplication.sharedApplication().delegate?.window??.addSubview(self)
+    }
+    
     
     // MARK: Instance methods
     internal func addButton(buttonTitle: String) {
@@ -134,7 +138,7 @@ class PopupView: UIView {
     }
     
     internal func show() {
-        UIApplication.sharedApplication().delegate?.window??.addSubview(self)
+        addView()
         
         switch (self.popupViewStyle! as PopupViewStyle) {
         case .ToastStyle:
@@ -149,6 +153,8 @@ class PopupView: UIView {
                         selector: #selector(self.timerAction),
                         userInfo: nil,
                         repeats: false)
+                    
+                    print("window : \(self.superview!.frame)\nself : \(self.frame)\nlabel : \(self.messageLabel.frame)")
                     })
             break
             

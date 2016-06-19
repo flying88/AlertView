@@ -32,8 +32,13 @@ class ViewController: UIViewController {
     }
     
     @IBAction func buttonAction(sender: AnyObject) {
-        let popupView = PopupView(popupViewStyle: .ToastStyle)
-        popupView.show()
+//        let popupView = PopupView(popupViewStyle: .ToastStyle, message:"test message")
+//        let popupView = PopupViewForAutolayout(popupViewStyle: .ToastStyle, message:"test message\nZzzzZzzz")
+//        popupView.toastDurationTime = .ShortTime
+//        popupView.show()
+        
+        let toastView = ToastView(message: "test message\nZzzzZzzz")
+        toastView.show()
     }
 }
 
